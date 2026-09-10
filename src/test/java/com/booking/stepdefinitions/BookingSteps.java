@@ -3,6 +3,7 @@ package com.booking.stepdefinitions;
 import com.booking.client.BookingClient;
 import com.booking.models.Booking;
 import com.booking.models.BookingDates;
+import com.booking.utils.TestDataFactory;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,7 +23,7 @@ public class BookingSteps {
 	@Given("I have valid booking details")
 	public void iHaveValidBookingDetails() {		
 		
-		BookingDates bookingDates = new BookingDates("2027-01-23", "2027-01-25");
+		BookingDates bookingDates = TestDataFactory.generateFutureBookingDates();
 		
 		bookingRequest = new Booking(2, "John", "Doe", true, bookingDates, "John.doe@example.com", "12345678901");
 		
@@ -50,8 +51,8 @@ public class BookingSteps {
 			.body("lastname", equalTo("Doe"))
 			.body("roomid",equalTo(2))
 			.body("depositpaid", equalTo(true))
-			.body("bookingdates.checkin", equalTo("2027-01-23"))
-			.body("bookingdates.checkout", equalTo("2027-01-25"));
+			.body("bookingdates.checkin", equalTo(bookingRequest.getBookingdates().getCheckin()))
+			.body("bookingdates.checkout", equalTo(bookingRequest.getBookingdates().getCheckout()));
 	}
 
 }
