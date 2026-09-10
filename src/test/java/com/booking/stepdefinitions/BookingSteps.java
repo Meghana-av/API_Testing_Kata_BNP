@@ -12,8 +12,6 @@ import io.restassured.response.Response;
 
 import static org.hamcrest.Matchers.*;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 public class BookingSteps {
 	private BookingClient bookingClient = new BookingClient();

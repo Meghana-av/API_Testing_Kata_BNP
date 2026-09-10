@@ -1,8 +1,5 @@
 package com.booking.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.restassured.response.Response;
 
 public class Booking {
 	
@@ -14,6 +11,10 @@ public class Booking {
 	private boolean depositpaid;
 	private String email;
 	private String phone;
+	
+	public Booking() {
+		
+	}
 
 	public Booking(int roomid, String firstname, String lastname, boolean depositpaid, BookingDates bookingDates, String email,
 			String phone) {
