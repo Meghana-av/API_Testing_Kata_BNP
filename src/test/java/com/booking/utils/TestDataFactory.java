@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.booking.models.Booking;
 import com.booking.models.BookingDates;
 
 public class TestDataFactory {
@@ -21,5 +22,14 @@ public class TestDataFactory {
 		return new BookingDates (checkin.toString(), checkout.toString());
 				
 
+	}
+	
+	public static Booking createBooking(int roomid, String firstName, 
+			String lastName, boolean depositPaid, String email, String phone) {
+		
+		BookingDates bookingDates = generateFutureBookingDates();
+		
+		return new Booking (roomid, firstName,lastName, depositPaid, bookingDates, email, phone);
+		
 	}
 }

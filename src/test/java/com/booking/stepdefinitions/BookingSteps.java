@@ -20,15 +20,16 @@ public class BookingSteps {
 	private Response apiResponse;
 	
 	
-	@Given("I have valid booking details")
-	public void iHaveValidBookingDetails() {		
+	@Given("I have valid booking details for {string} {string} {string} {string} {string} {string}")
+	public void iHaveValidBookingDetails(String roomid, String firstName, 
+			String lastName, String depositPaid,String email, String phone) {		
 		
 		BookingDates bookingDates = TestDataFactory.generateFutureBookingDates();
 		
-		bookingRequest = new Booking(2, "John", "Doe", true, bookingDates, "John.doe@example.com", "12345678901");
+		bookingRequest = TestDataFactory.createBooking(Integer.parseInt(roomid), firstName, lastName,
+				Boolean.parseBoolean(depositPaid), email, phone);				
 		
-	}
-	
+	}	
 	
 	@When("I create the booking")
 	public void iCreateBooking() {
@@ -47,10 +48,10 @@ public class BookingSteps {
 		
 		apiResponse.then()
 			.body("bookingid", notNullValue()).body("bookingid", greaterThan(0))
-			.body("firstname", equalTo("John"))
-			.body("lastname", equalTo("Doe"))
-			.body("roomid",equalTo(2))
-			.body("depositpaid", equalTo(true))
+			.body("firstname", equalTo(bookingRequest.getFirstname()))
+			.body("lastname", equalTo(bookingRequest.getLastname()))
+			.body("roomid",equalTo(bookingRequest.getRoomid()))
+			.body("depositpaid", equalTo(bookingRequest.isDepositpaid()))
 			.body("bookingdates.checkin", equalTo(bookingRequest.getBookingdates().getCheckin()))
 			.body("bookingdates.checkout", equalTo(bookingRequest.getBookingdates().getCheckout()));
 	}
