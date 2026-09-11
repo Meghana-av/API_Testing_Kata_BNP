@@ -32,4 +32,5 @@ public class TestDataFactory {
 		return new Booking (roomid, firstName,lastName, depositPaid, bookingDates, email, phone);
 		
 	}
+	
 }

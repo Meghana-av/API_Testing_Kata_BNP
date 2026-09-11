@@ -23,12 +23,12 @@ public class AuthSteps {
 		authRequest = new AuthRequest(username, password);
 	}
 	
-	@When("I Send the Login request")
+	@When("I Send the login request")
 	public void iSendTheLoginRequest() {
 		apiResponse = authClient.login(authRequest);
 	}
 	
-	@Then("Login should be successful")
+	@Then("login should be successful")
 	public void loginShouldBeSuccessful() {
 		apiResponse.then().statusCode(200).body("token", not(isEmptyOrNullString()));
 		authToken = apiResponse.jsonPath().getString("token");
@@ -42,7 +42,7 @@ public class AuthSteps {
     }
     		
    
-    @Then("Login should fail")
+    @Then("login should fail")
     public void loginShouldFail() {
     	apiResponse.then().statusCode(401).body("error", equalTo("Invalid credentials"));
     }

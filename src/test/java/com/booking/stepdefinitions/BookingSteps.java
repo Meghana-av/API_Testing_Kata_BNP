@@ -29,8 +29,8 @@ public class BookingSteps {
 	private String updatedFirstName;
 	private String updatedLastName;
 	
-	@Given("I have valid booking details for {string} {string} {string} {string} {string} {string}")
-	public void iHaveValidBookingDetails(String roomid, String firstName, 
+	@Given("I have booking details for {string} {string} {string} {string} {string} {string}")
+	public void iHaveBookingDetails(String roomid, String firstName, 
 			String lastName, String depositPaid,String email, String phone)  	{		
 		
 		bookingRequest = TestDataFactory.createBooking(Integer.parseInt(roomid), firstName, lastName,
@@ -66,17 +66,20 @@ public class BookingSteps {
 			.body("bookingdates.checkout", equalTo(bookingRequest.getBookingdates().getCheckout()));
 	}
 	
+	//Validate POST
+		@Then("the booking creation should fail with status code 400")
+		public void theBookingShouldFail() {			
+			
+			apiResponse.then().statusCode(400).body("errors", hasItem("Firstname should not be blank"));
+			
+		}
+	
 	
 	//GET - Retrieve a booking
 	@When("I retrieve the booking")
     public void iRetrieveTheBooking() {
 		
-//		String username = ConfigReader.get("auth.username");
-	//	String password = ConfigReader.get("auth.password");
-		
-		//AuthRequest authRequest = new AuthRequest(username, password);
-
-	    authToken = authService.getAuthToken();
+		authToken = authService.getAuthToken();
 
 	    apiResponse = bookingClient.getBooking(bookingId, authToken);
     }
@@ -223,7 +226,6 @@ public class BookingSteps {
 
           apiResponse.then().statusCode(403);
                   
-      }
-      
+      }   
       
 }
