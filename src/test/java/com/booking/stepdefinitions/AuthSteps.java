@@ -34,5 +34,17 @@ public class AuthSteps {
 		authToken = apiResponse.jsonPath().getString("token");
 	}
 	
+	
+	  
+    @Given("I have invalid authentication credentials {string} {string}")
+    public void iHaveInvalidAuthenticationCredentials(String username, String password) {
+    	authRequest = new AuthRequest(username, password);
+    }
+    		
+   
+    @Then("Login should fail")
+    public void loginShouldFail() {
+    	apiResponse.then().statusCode(401).body("error", equalTo("Invalid credentials"));
+    }
 
 }

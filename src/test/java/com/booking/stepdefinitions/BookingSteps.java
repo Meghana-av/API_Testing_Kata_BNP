@@ -167,6 +167,7 @@ public class BookingSteps {
     	apiResponse = bookingClient.getBooking(bookingId, authToken);
     	apiResponse.then().statusCode(404);
     }
+  
     
     	
 }
