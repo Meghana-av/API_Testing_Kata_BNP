@@ -11,6 +11,8 @@ public class Booking {
 	private boolean depositpaid;
 	private String email;
 	private String phone;
+
+	
 	
 	public Booking() {
 		
@@ -85,5 +87,6 @@ public class Booking {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
 
 }

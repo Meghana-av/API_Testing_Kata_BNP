@@ -26,6 +26,8 @@ public class BookingSteps {
 	private int bookingId;
 	private AuthService authService = new AuthService();
 	private String authToken;
+	private String updatedFirstName;
+	private String updatedLastName;
 	
 	@Given("I have valid booking details for {string} {string} {string} {string} {string} {string}")
 	public void iHaveValidBookingDetails(String roomid, String firstName, 
@@ -100,5 +102,48 @@ public class BookingSteps {
                 .body("bookingdates.checkout",
                         equalTo(bookingRequest.getBookingdates().getCheckout()));
     }
+    
+    //UPDATE
+    @When("I update the booking {string} {string}")
+    public void iUpdateTheBooking(String updatedFirstname, String updatedLastname) {
+    	
+    	this.updatedFirstName = updatedFirstname;
+    	this.updatedLastName = updatedLastname;
+    	
+    	bookingRequest.setFirstname(updatedFirstname);
+    	bookingRequest.setLastname(updatedLastname);
+    	
+    	BookingDates updatedDates = TestDataFactory.generateFutureBookingDates();
+    	
+    	bookingRequest.setBookingdates(updatedDates);
+    	
+    	apiResponse = bookingClient.updateBooking(bookingId, bookingRequest, authToken);
+    	
+    }
+    
+    //Validate Update
+    @Then("the booking should be updated successfully")
+    public void thenTheBookingShouldBeUpdatedSuccessfully() {
+    	
+    	
+		apiResponse.then().statusCode(200).body("bookingid", equalTo(bookingId)).body("booking.firstname", equalTo(updatedFirstName))
+    		.body("booking.lastname", equalTo(updatedLastName));
+    }
+    
+    @Then("the updated booking details should be returned")
+    public void theUpdatedBookingDetailsShouldBeReturned() {
 
+        apiResponse.then()
+                .statusCode(200)
+                .body("bookingid", equalTo(bookingId))
+                .body("booking.firstname", equalTo(updatedFirstName))
+                .body("booking.lastname", equalTo(updatedLastName))
+                .body("booking.roomid", equalTo(bookingRequest.getRoomid()))
+                .body("booking.depositpaid", equalTo(bookingRequest.isDepositpaid()))
+                .body("booking.bookingdates.checkin",
+                        equalTo(bookingRequest.getBookingdates().getCheckin()))
+                .body("booking.bookingdates.checkout",
+                        equalTo(bookingRequest.getBookingdates().getCheckout()));
+    }
+    	
 }

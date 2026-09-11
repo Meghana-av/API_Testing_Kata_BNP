@@ -11,8 +11,12 @@ Feature: Booking API
 
     When I retrieve the booking
     Then the booking details should be returned
+    
+    When I update the booking "<updatedFirstName>" "<updatedLastName>"
+	Then the booking should be updated successfully
+	And the updated booking details should be returned
 
     Examples:
-      | roomid | firstName | lastName | depositPaid | email                   | phone       |
-      | 2      | John      | Doe      | true        | john.doe@example.com    | 12345678901 |
+      | roomid | firstName | lastName | depositPaid | email                   | phone       | updatedFirstName | updatedLastName |
+      | 2      | John      | Doe      | true        | john.doe@example.com    | 12345678901 | megjohn          | upDoemeg        |
   

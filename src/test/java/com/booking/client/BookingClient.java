@@ -4,6 +4,7 @@ import com.booking.models.Booking;
 
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
+import io.restassured.http.ContentType;
 
 
 public class BookingClient {
@@ -24,6 +25,14 @@ public class BookingClient {
 		
 	    return given().log().all().cookie("token", token).when()
 	            .get(BASE_URL + BOOKING_ENDPOINT + "/" + bookingId);
+	}
+	
+	//PUT - Update a Booking
+	public Response updateBooking(int bookingID, Booking booking, String token) {
+		return given().log().all().contentType(ContentType.JSON)
+	            .accept(ContentType.JSON).cookie("token", token).when().body(booking)
+				.when().put(BASE_URL + BOOKING_ENDPOINT + "/" + bookingID);
+		
 	}
 
 }
