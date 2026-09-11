@@ -73,7 +73,7 @@ public class BookingSteps {
 			apiResponse.then().statusCode(400).body("errors", hasItem("Firstname should not be blank"));
 			
 		}
-	
+	  
 	
 	//GET - Retrieve a booking
 	@When("I retrieve the booking")
