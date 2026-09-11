@@ -169,5 +169,61 @@ public class BookingSteps {
     }
   
     
-    	
+    //GET - Retrieve a booking without authentication
+  	@When("I retrieve the booking without authentication")
+      public void iRetrieveTheBookingWithoutAuth() {
+  		
+  		apiResponse = bookingClient.getBookingWithoutAuth(bookingId);
+  		
+      }
+  	
+  	 // Validate GET without authentication
+      @Then("the booking retrieval should be forbidden")
+      public void theBookingRetrievalShouldBeForbidden() {
+
+          apiResponse.then().statusCode(403);
+                  
+      }
+      
+    //UPDATE the booking without authentication
+      @When("I update the booking without authentication")
+      public void iUpdateTheBookingWithoutAuth() {
+      	
+      	BookingDates updatedDates = TestDataFactory.generateFutureBookingDates();
+      	
+      	bookingRequest.setBookingdates(updatedDates);
+      	
+      	apiResponse = bookingClient.updateBookingWithoutAuth(bookingId, bookingRequest);
+      	
+      }
+      
+    //Validate Update the booking without authentication
+      @Then("the booking update should be forbidden")
+      public void theBookingUpdateShouldBeForbidden() {
+
+          apiResponse.then().statusCode(403);
+                  
+      }
+      
+    //DELETE the booking without authentication
+      @When("I delete the booking without authentication")
+      public void iDeleteTheBookingWithoutAuth() {
+      	
+      	BookingDates updatedDates = TestDataFactory.generateFutureBookingDates();
+      	
+      	bookingRequest.setBookingdates(updatedDates);
+      	
+      	apiResponse = bookingClient.updateBookingWithoutAuth(bookingId, bookingRequest);
+      	
+      }
+      
+    //Validate delete the booking without authentication
+      @Then("the booking delete should be forbidden")
+      public void theBookingDeleteShouldBeForbidden() {
+
+          apiResponse.then().statusCode(403);
+                  
+      }
+      
+      
 }

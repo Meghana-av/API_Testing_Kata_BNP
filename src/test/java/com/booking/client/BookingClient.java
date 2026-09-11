@@ -20,7 +20,7 @@ public class BookingClient {
 		
 	}
 	
-	//GET - Retrieve a Booking
+	//GET - Retrieve a Booking with Token
 	public Response getBooking(int bookingId, String token) {
 		
 	    return given().log().all().cookie("token", token).when()
@@ -40,5 +40,27 @@ public class BookingClient {
 		return given().log().all().cookie("token", token).when()
 				.delete(BASE_URL + BOOKING_ENDPOINT + "/" + bookingID);	
 	}
+	
+	//GET - Retrieve a Booking without Authentication Token
+	public Response getBookingWithoutAuth(int bookingId) {
+		
+	    return given().log().all().when()
+	            .get(BASE_URL + BOOKING_ENDPOINT + "/" + bookingId);
+	}
+	
+	//PUT - Update a Booking without Authentication Token
+	public Response updateBookingWithoutAuth(int bookingID, Booking booking) {
+		return given().log().all().contentType(ContentType.JSON)
+		            .accept(ContentType.JSON).when().body(booking)
+					.when().put(BASE_URL + BOOKING_ENDPOINT + "/" + bookingID);
+			
+		}
+		
+	//DELETE - Delete the Booking without Authentication Token
+	public Response deleteBookingWithoutAuth(int bookingID) {
+		return given().log().all().when()
+					.delete(BASE_URL + BOOKING_ENDPOINT + "/" + bookingID);	
+		}
+	
 
 }
