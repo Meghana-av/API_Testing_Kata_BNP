@@ -65,3 +65,56 @@ This kata has the purpose to evaluate both your technical skills as well as your
 * Quality of the codebase (design patterns, structure, code quality, …)
 * Use of Rest-Assured and Cucumber features
 * Commit history and progress demonstration
+
+  ##Automation API Testing Kata 
+
+Basic API automation framework created for the API Testing.
+
+## Technologies
+
+•	Java 17
+•	Maven
+•	Rest-Assured
+•	Cucumber
+•	JUnit 5
+
+## Application Under Test
+
+https://automationintesting.online/
+
+## Swagger:
+
+•	Booking API: https://automationintesting.online/api/booking/swagger-ui/index.html
+•	Authentication API: https://automationintesting.online/api/auth/swagger-ui/index.html
+
+## Test Coverage
+
+###	Authentication
+o	Successful login
+o	Invalid credentials
+
+###	 Booking
+o	Create booking
+o	Retrieve booking
+o	Update booking
+o	Delete booking
+o	Verify booking deletion
+o	Invalid mandatory booking data
+o	Unauthorized GET
+o	Unauthorized PUT
+o	Unauthorized DELETE
+
+## Framework Structure
+
+o	client – API requests
+o	service – reusable business/API services
+o	models – request/response models
+o	stepdefinitions – Cucumber step definitions
+o	utils – configuration and test-data utilities
+o	features – BDD scenarios
+
+## Running the Tests
+
+Run `TestRunner.java` as a JUnit 5 test.
+
+
