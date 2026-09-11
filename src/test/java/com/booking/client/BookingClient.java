@@ -12,7 +12,7 @@ public class BookingClient {
 	private static final String BASE_URL = "https://automationintesting.online/api";
 	private static final String BOOKING_ENDPOINT = "/booking";
 	
-	//Post - Create a Booking
+	//POST - Create a Booking
 	public Response createBooking(Booking booking) {
 		
 		return given().log().all().contentType("application/json").body(booking)
@@ -20,7 +20,7 @@ public class BookingClient {
 		
 	}
 	
-	//Get - Retrieve a Booking
+	//GET - Retrieve a Booking
 	public Response getBooking(int bookingId, String token) {
 		
 	    return given().log().all().cookie("token", token).when()
@@ -33,6 +33,12 @@ public class BookingClient {
 	            .accept(ContentType.JSON).cookie("token", token).when().body(booking)
 				.when().put(BASE_URL + BOOKING_ENDPOINT + "/" + bookingID);
 		
+	}
+	
+	//DELETE - Delete the Booking
+	public Response deleteBooking(int bookingID, String token) {
+		return given().log().all().cookie("token", token).when()
+				.delete(BASE_URL + BOOKING_ENDPOINT + "/" + bookingID);	
 	}
 
 }

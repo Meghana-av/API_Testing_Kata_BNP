@@ -15,6 +15,10 @@ Feature: Booking API
     When I update the booking "<updatedFirstName>" "<updatedLastName>"
 	Then the booking should be updated successfully
 	And the updated booking details should be returned
+	
+	When I delete the booking
+	Then the booking details should be deleted
+	And the booking should no longer exist
 
     Examples:
       | roomid | firstName | lastName | depositPaid | email                   | phone       | updatedFirstName | updatedLastName |

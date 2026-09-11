@@ -67,15 +67,14 @@ public class BookingSteps {
 	}
 	
 	
-	//GET
+	//GET - Retrieve a booking
 	@When("I retrieve the booking")
     public void iRetrieveTheBooking() {
 		
-		String username = ConfigReader.get("auth.username");
-		String password = ConfigReader.get("auth.password");
+//		String username = ConfigReader.get("auth.username");
+	//	String password = ConfigReader.get("auth.password");
 		
-		AuthRequest authRequest =
-	            new AuthRequest(username, password);
+		//AuthRequest authRequest = new AuthRequest(username, password);
 
 	    authToken = authService.getAuthToken();
 
@@ -103,7 +102,7 @@ public class BookingSteps {
                         equalTo(bookingRequest.getBookingdates().getCheckout()));
     }
     
-    //UPDATE
+    //UPDATE the booking
     @When("I update the booking {string} {string}")
     public void iUpdateTheBooking(String updatedFirstname, String updatedLastname) {
     	
@@ -145,5 +144,29 @@ public class BookingSteps {
                 .body("booking.bookingdates.checkout",
                         equalTo(bookingRequest.getBookingdates().getCheckout()));
     }
+    
+    //DELETE the booking
+    @When("I delete the booking")
+    public void iDeleteTheBooking() {		
+
+	    authToken = authService.getAuthToken();
+
+	    apiResponse = bookingClient.deleteBooking(bookingId, authToken);
+    }
+    
+    @Then("the booking details should be deleted")
+    public void theBookingDetailsShouldBeDeleted() {
+
+        apiResponse.then().statusCode(202);
+
+    }
+    
+    @Then("the booking should no longer exist")
+    public void theBookingShouldNoLongerExist() {
+    	
+    	apiResponse = bookingClient.getBooking(bookingId, authToken);
+    	apiResponse.then().statusCode(404);
+    }
+    
     	
 }
